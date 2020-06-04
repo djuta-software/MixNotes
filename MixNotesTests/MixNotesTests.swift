@@ -1,11 +1,3 @@
-//
-//  MixNotesTests.swift
-//  MixNotesTests
-//
-//  Created by Deven Juta on 2020-04-28.
-//  Copyright © 2020 Deven Juta. All rights reserved.
-//
-
 import XCTest
 @testable import MixNotes
 
