@@ -42,7 +42,6 @@ struct TrackView: View {
                     Text("Delete")
                 }
             }
- 
         }
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
@@ -79,8 +78,6 @@ struct TrackView: View {
     func onDisappear() {
         globalPlayerService.showPlayer()
     }
-    
-
     
     var isDownloadingDisabled: Bool {
         viewModel.downloadStatus == .current ||
