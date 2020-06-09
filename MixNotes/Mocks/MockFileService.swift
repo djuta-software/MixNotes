@@ -1,6 +1,5 @@
-import XCTest
+import Foundation
 import Combine
-@testable import MixNotes
 
 enum MockFileServiceError: Error {
     case downloadItemError, evictItemError, downloadStatusError, readError

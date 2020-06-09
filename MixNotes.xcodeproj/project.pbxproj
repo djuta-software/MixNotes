@@ -34,21 +34,22 @@
 		8A5079EB245922E80030703E /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5079EA245922E80030703E /* TrackView.swift */; };
 		8A5079EF2459253C0030703E /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5079EE2459253C0030703E /* TrackViewModel.swift */; };
 		8A7428B42463830300122D3A /* NoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7428B32463830300122D3A /* NoteRepository.swift */; };
+		8A7B0BF4248F26B90067283C /* PreviewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7B0BF3248F26B90067283C /* PreviewUtils.swift */; };
+		8A7B0BF5248F2D2E0067283C /* MockFileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA0E21246A28DA002D7AA1 /* MockFileService.swift */; };
+		8A7B0BF6248F2D310067283C /* MockNoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB32AC9246E08A200D8559C /* MockNoteRepository.swift */; };
+		8A7B0BF7248F2D340067283C /* MockPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD532632474A1AA00A0330C /* MockPlayerService.swift */; };
 		8A87C24C245B6126009DECF3 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A87C24B245B6126009DECF3 /* FileService.swift */; };
 		8A87C24E245B6147009DECF3 /* NoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A87C24D245B6147009DECF3 /* NoteService.swift */; };
 		8AAA0E19246A2261002D7AA1 /* ProjectServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA0E18246A2261002D7AA1 /* ProjectServiceTests.swift */; };
 		8AAA0E1B246A2298002D7AA1 /* NoteServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA0E1A246A2298002D7AA1 /* NoteServiceTests.swift */; };
 		8AAA0E1D246A22ED002D7AA1 /* GlobalMessageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA0E1C246A22ED002D7AA1 /* GlobalMessageServiceTests.swift */; };
 		8AAA0E1F246A230B002D7AA1 /* GlobalPlayerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA0E1E246A230B002D7AA1 /* GlobalPlayerServiceTests.swift */; };
-		8AAA0E22246A28DA002D7AA1 /* MockFileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA0E21246A28DA002D7AA1 /* MockFileService.swift */; };
 		8AAA0E25246B8332002D7AA1 /* XCTestCaseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAA0E24246B8332002D7AA1 /* XCTestCaseExtensions.swift */; };
 		8AAEBABA245C9FD50028EA54 /* GlobalMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEBAB9245C9FD50028EA54 /* GlobalMessageService.swift */; };
 		8AAEBABE245CA3800028EA54 /* GlobalMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEBABD245CA3800028EA54 /* GlobalMessageView.swift */; };
-		8AB32ACA246E08A200D8559C /* MockNoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB32AC9246E08A200D8559C /* MockNoteRepository.swift */; };
 		8ABEB5DB2475EB8900B01B5D /* ProjectsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEB5DA2475EB8900B01B5D /* ProjectsViewModelTests.swift */; };
 		8ABEB5DD2475ECE500B01B5D /* ProjectViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEB5DC2475ECE500B01B5D /* ProjectViewModelTests.swift */; };
 		8ABEB5DF2475ECFC00B01B5D /* TrackViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEB5DE2475ECFC00B01B5D /* TrackViewModelTests.swift */; };
-		8AD532642474A1AA00A0330C /* MockPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD532632474A1AA00A0330C /* MockPlayerService.swift */; };
 		FBDA0FA3248EE10F00DAFF9A /* URLExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDA0FA2248EE10F00DAFF9A /* URLExtensionTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		8A5079EA245922E80030703E /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
 		8A5079EE2459253C0030703E /* TrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewModel.swift; sourceTree = "<group>"; };
 		8A7428B32463830300122D3A /* NoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRepository.swift; sourceTree = "<group>"; };
+		8A7B0BF3248F26B90067283C /* PreviewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewUtils.swift; sourceTree = "<group>"; };
 		8A87C24B245B6126009DECF3 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		8A87C24D245B6147009DECF3 /* NoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteService.swift; sourceTree = "<group>"; };
 		8AAA0E18246A2261002D7AA1 /* ProjectServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectServiceTests.swift; sourceTree = "<group>"; };
@@ -207,6 +209,8 @@
 		8A5079A1245918D60030703E /* MixNotes */ = {
 			isa = PBXGroup;
 			children = (
+				8AAA0E20246A233F002D7AA1 /* Mocks */,
+				8A7B0BF2248F26990067283C /* Utils */,
 				8A7428B2246382D900122D3A /* Repositories */,
 				8A1BC4A82460F6EE001297F6 /* Extensions */,
 				8A1BC4A12460EF56001297F6 /* Constants */,
@@ -237,7 +241,6 @@
 				FBDA0FA1248EE0C800DAFF9A /* Extensions */,
 				8ABEB5D92475EB6700B01B5D /* ViewModels */,
 				8AAA0E23246B8320002D7AA1 /* Utils */,
-				8AAA0E20246A233F002D7AA1 /* Mocks */,
 				8AAA0E17246A2245002D7AA1 /* Services */,
 				8A5079B9245918D90030703E /* MixNotesTests.swift */,
 				8A5079BB245918D90030703E /* Info.plist */,
@@ -312,6 +315,14 @@
 				8A7428B32463830300122D3A /* NoteRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		8A7B0BF2248F26990067283C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8A7B0BF3248F26B90067283C /* PreviewUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		8AAA0E17246A2245002D7AA1 /* Services */ = {
@@ -506,10 +517,13 @@
 				8A1BC4AA2460F6FE001297F6 /* URLExtension.swift in Sources */,
 				8A87C24C245B6126009DECF3 /* FileService.swift in Sources */,
 				8AAEBABE245CA3800028EA54 /* GlobalMessageView.swift in Sources */,
+				8A7B0BF4248F26B90067283C /* PreviewUtils.swift in Sources */,
 				8A5079A3245918D60030703E /* AppDelegate.swift in Sources */,
 				8A1BC4A72460EFAD001297F6 /* SFIcon.swift in Sources */,
+				8A7B0BF6248F2D310067283C /* MockNoteRepository.swift in Sources */,
 				8A5079EB245922E80030703E /* TrackView.swift in Sources */,
 				8A5079E524591D8F0030703E /* ProjectsViewModel.swift in Sources */,
+				8A7B0BF7248F2D340067283C /* MockPlayerService.swift in Sources */,
 				8A1BC4A02460EDCC001297F6 /* GlobalPlayerView.swift in Sources */,
 				8A5079A5245918D60030703E /* SceneDelegate.swift in Sources */,
 				8A5079E124591A760030703E /* Note.swift in Sources */,
@@ -518,6 +532,7 @@
 				8A4A3199245DE2320058DE9F /* GlobalPlayerService.swift in Sources */,
 				8A1BC4A52460EF96001297F6 /* Localization.swift in Sources */,
 				8A87C24E245B6147009DECF3 /* NoteService.swift in Sources */,
+				8A7B0BF5248F2D2E0067283C /* MockFileService.swift in Sources */,
 				8A5079D72459195A0030703E /* ProjectsView.swift in Sources */,
 				8A5079DA2459196E0030703E /* Project.swift in Sources */,
 				8A5079E7245921190030703E /* ProjectView.swift in Sources */,
@@ -537,15 +552,12 @@
 				8ABEB5DB2475EB8900B01B5D /* ProjectsViewModelTests.swift in Sources */,
 				8ABEB5DD2475ECE500B01B5D /* ProjectViewModelTests.swift in Sources */,
 				8AAA0E1D246A22ED002D7AA1 /* GlobalMessageServiceTests.swift in Sources */,
-				8AD532642474A1AA00A0330C /* MockPlayerService.swift in Sources */,
 				8ABEB5DF2475ECFC00B01B5D /* TrackViewModelTests.swift in Sources */,
 				8A5079BA245918D90030703E /* MixNotesTests.swift in Sources */,
 				8AAA0E1F246A230B002D7AA1 /* GlobalPlayerServiceTests.swift in Sources */,
-				8AB32ACA246E08A200D8559C /* MockNoteRepository.swift in Sources */,
 				FBDA0FA3248EE10F00DAFF9A /* URLExtensionTests.swift in Sources */,
 				8AAA0E19246A2261002D7AA1 /* ProjectServiceTests.swift in Sources */,
 				8AAA0E1B246A2298002D7AA1 /* NoteServiceTests.swift in Sources */,
-				8AAA0E22246A28DA002D7AA1 /* MockFileService.swift in Sources */,
 				8AAA0E25246B8332002D7AA1 /* XCTestCaseExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

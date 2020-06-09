@@ -24,8 +24,8 @@ struct GlobalMessageView: View {
     }
 }
 
-//struct GlobalErrorView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GlobalErrorView()
-//    }
-//}
+struct GlobalMessageView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewUtils.createPreviewGlobalMessageView()
+    }
+}

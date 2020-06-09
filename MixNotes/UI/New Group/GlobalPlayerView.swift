@@ -42,8 +42,8 @@ struct GlobalPlayerView: View {
     }
 }
 
-struct PlayerView_Previews: PreviewProvider {
+struct GlobalPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        GlobalPlayerView()
+        PreviewUtils.createPreviewGlobalPlayerView()
     }
 }

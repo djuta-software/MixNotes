@@ -1,7 +1,5 @@
-import XCTest
+import Foundation
 import Combine
-@testable import MixNotes
-
 
 enum MockNoteRepositoryError: Error {
     case addError, getError, deleteError

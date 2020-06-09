@@ -11,7 +11,7 @@ struct ProjectView: View {
     
     var list: some View {
         if(viewModel.tracks.isEmpty) {
-            return AnyView(EmptyView())
+            return AnyView(Text("No tracks :("))
         }
         let list = List(viewModel.tracks, id: \.id) { track in
             NavigationLink(destination: self.viewModel.createTrackView(for: track)) {
@@ -22,8 +22,8 @@ struct ProjectView: View {
     }
 }
 
-//struct ProjectView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProjectView()
-//    }
-//}
+struct ProjectView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewUtils.createPreviewProjectView()
+    }
+}

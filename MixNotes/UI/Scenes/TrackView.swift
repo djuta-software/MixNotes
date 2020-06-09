@@ -103,11 +103,10 @@ struct TrackView: View {
             $0.timestamp <= globalPlayerService.currentTime
         }
     }
-
 }
 
-//struct TrackView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TrackView()
-//    }
-//}
+struct TrackView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewUtils.createPreviewTrackView()
+    }
+}

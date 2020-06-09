@@ -21,8 +21,8 @@ struct ProjectsView: View {
     }
 }
 
-//struct ProjectsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProjectsView()
-//    }
-//}
+struct ProjectsView_Previews: PreviewProvider {
+    static var previews: some View {
+        PreviewUtils.createPreviewProjectsView()
+    }
+}
