@@ -378,8 +378,7 @@
 				8A1BC49F2460EDCC001297F6 /* GlobalPlayerView.swift */,
 				8AAEBABD245CA3800028EA54 /* GlobalMessageView.swift */,
 			);
-			name = Views;
-			path = "New Group";
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

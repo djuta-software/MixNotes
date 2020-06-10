@@ -39,7 +39,7 @@ class TrackViewModel: ObservableObject {
                 case .failure:
                     self.globalMessageService.setErrorMessage("Error fetching notes")
                 case .finished:
-                    self.globalMessageService.setErrorMessage("Notes fetched")
+                    self.globalMessageService.setSuccessMessage("Notes fetched")
                 }
             }, receiveValue: {
                 self.notes = $0
