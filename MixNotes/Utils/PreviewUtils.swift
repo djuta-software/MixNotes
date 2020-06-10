@@ -8,7 +8,7 @@ struct PreviewUtils {
             id: "testtrack",
             title: "Test Track",
             version: 2,
-            url: URL(fileURLWithPath: "filesystem/track.wav")
+            url: URL(fileURLWithPath: "/filesystem/track.wav")
         )
         let viewModel = TrackViewModel(
             track: track,
@@ -17,6 +17,10 @@ struct PreviewUtils {
             globalMessageService: GlobalMessageService()
         )
         let globalPlayerService = GlobalPlayerService(player: MockPlayerService())
+        globalPlayerService.loadAndPlay(track, shouldPlay: false)
+        viewModel.notes.append(
+            Note(id: "123", timestamp: 0, text: "This is a really good note")
+        )
         return TrackView(viewModel: viewModel)
             .environmentObject(globalPlayerService)
     }

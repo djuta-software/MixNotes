@@ -1,50 +1,146 @@
 import SwiftUI
 
 struct TrackView: View {
-
+    
+    enum ButtonState: String {
+        case download
+        case play
+        case pause
+        case error
+        case downloading
+        case loading
+    }
+    
     @EnvironmentObject var globalPlayerService: GlobalPlayerService
     @ObservedObject var viewModel: TrackViewModel
     @State var newNote = ""
     
     var body: some View {
         VStack {
-            Text(viewModel.track.title)
-            Text("Version \(viewModel.track.version)")
-            Text("Status: \(viewModel.downloadStatus.rawValue)")
-            Button(action: viewModel.downloadTrack) {
-                Text("Download")
-            }
-            .disabled(isDownloadingDisabled)
-            
-            Button(action: viewModel.evictTrack) {
-                Text("Evict Track")
-            }
-            .disabled(isEvictingDisabled)
-            
-            Button(action: playTrack) {
-                Text("Play")
-            }
-            .disabled(viewModel.downloadStatus != .current)
-            
-            Text("\(currentTime)")
-            
-            Section {            
-                Text(currentNote?.text ?? "")
-
-                TextField("Note", text: $newNote)
-                    .onTapGesture(perform: globalPlayerService.pause)
-                
-                Button(action: addNote) {
-                    Text("Add")
-                }
-                
-                Button(action: deleteNote) {
-                    Text("Delete")
-                }
-            }
+            trackData
+            Spacer().frame(maxWidth: .infinity)
+            notes
+            Spacer().frame(maxWidth: .infinity)
+            noteInput
+            player
         }
+        .navigationBarTitle(viewModel.track.title)
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
+    }
+    
+    var notes: some View {
+        guard let note = currentNote else {
+            return AnyView(Text("Nothing"))
+        }
+        let view = VStack(alignment: .leading) {
+            HStack(alignment: .top) {
+                Text("\(note.timestamp)")
+                Spacer()
+                Button(action: deleteNote) {
+                    Image(systemName: SFIcon.DELETE)
+                }
+            }
+            Spacer()
+            Text(note.text)
+            Spacer()
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: 200
+        )
+        .padding()
+        .background(Color.gray)
+        return AnyView(view)
+    }
+    
+    var trackData: some View {
+        HStack {
+            Text(viewModel.track.title)
+                .font(.title)
+            Spacer()
+            Text("Version \(viewModel.track.version)")
+        }
+        .padding()
+        .background(Color.orange)
+    }
+    
+    var noteInput: some View {
+        HStack {
+            Text("\(globalPlayerService.currentTime)")
+            TextField("Note", text: $newNote)
+                .onTapGesture(perform: globalPlayerService.pause)
+                .background(Color.white)
+            Button(action: addNote) {
+                Text("Add")
+            }
+            .background(Color.green)
+        }
+        .padding()
+        .background(Color.blue)
+    }
+    
+    var player: some View {
+        VStack {
+            Button(action: onButtonClick) {
+                Image(systemName: buttonIcon)
+                .frame(width: 75, height: 75)
+                .background(Color.orange)
+                .clipShape(Circle())
+            }
+        }
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: 200
+        )
+        .background(Color.pink)
+    }
+    
+    var buttonState: ButtonState {
+        let shouldDownload = (
+            viewModel.downloadStatus == .error ||
+            viewModel.downloadStatus == .remote ||
+            viewModel.downloadStatus == .stale
+        )
+        if shouldDownload {
+            return .download
+        }
+        if viewModel.downloadStatus == .current {
+            return globalPlayerService.isPlaying ? .pause : .play
+        }
+        return .error
+    }
+    
+    var onButtonClick: () -> Void {
+        switch buttonState {
+        case .download:
+            return viewModel.downloadTrack
+        case .play, .pause:
+            return playTrack
+        default:
+            return {}
+        }
+    }
+    
+    var buttonIcon: String {
+        switch buttonState {
+        case .download:
+            return SFIcon.DOWNLOAD
+        case .downloading:
+            return SFIcon.DOWNLOADING
+        case .error:
+            return SFIcon.ERROR
+        case .loading:
+            return SFIcon.LOADING
+        case .pause:
+            return SFIcon.PAUSE
+        case .play:
+            return SFIcon.PLAY
+        }
     }
     
     func playTrack() {

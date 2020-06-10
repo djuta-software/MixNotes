@@ -33,12 +33,13 @@ class TrackViewModel: ObservableObject {
     
     func fetchNotes() {
         _ = noteService.getNotes(for: track)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure:
                     self.globalMessageService.setErrorMessage("Error fetching notes")
                 case .finished:
-                    {}()
+                    self.globalMessageService.setErrorMessage("Notes fetched")
                 }
             }, receiveValue: {
                 self.notes = $0
