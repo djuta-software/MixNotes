@@ -21,11 +21,14 @@ struct PreviewUtils {
         viewModel.notes.append(
             Note(id: "123", timestamp: 0, text: "This is a really good note")
         )
-        return TrackView(viewModel: viewModel)
-            .environmentObject(globalPlayerService)
+        return NavigationView {
+            TrackView(viewModel: viewModel)
+                .environmentObject(globalPlayerService)
+        }
+
     }
     
-    static func createPreviewProjectView() -> some View {
+    static func createPreviewProjectView(numberOfItems: Int = 3) -> some View {
         let project = Project(id: "Test Project", title: "Test Project")
         let viewModel = ProjectViewModel(
             project: project,
@@ -33,7 +36,7 @@ struct PreviewUtils {
             noteService: PreviewNoteService(),
             globalMessageService: GlobalMessageService()
         )
-        for index in 1...3 {
+        for index in 1...numberOfItems {
             let track = Track(
                 id: "track\(index)",
                 title: "Track \(index)",
@@ -42,39 +45,30 @@ struct PreviewUtils {
             )
             viewModel.tracks.append(track)
         }
-        return ProjectView(viewModel: viewModel)
+        return NavigationView {
+            ProjectView(viewModel: viewModel)
+        }
     }
     
-    static func createPreviewProjectsView() -> some View {
+    static func createPreviewProjectsView(numberOfItems: Int = 3) -> some View {
         let viewModel = ProjectsViewModel(
             projectService: PreviewProjectService(),
             noteService: PreviewNoteService(),
             globalMessageService: GlobalMessageService()
         )
-        for index in 1...3 {
+        for index in 1...numberOfItems {
             let project = Project(id: "project\(index)", title: "Project \(index)")
             viewModel.projects.append(project)
         }
-        return ProjectsView(viewModel: viewModel)
+        return NavigationView {
+            ProjectsView(viewModel: viewModel)
+        }
     }
     
     static func createPreviewGlobalMessageView() -> some View {
         let globalMessageService = GlobalMessageService()
         globalMessageService.setInfoMessage("This is a message")
         return GlobalMessageView(globalMessageService: globalMessageService)
-    }
-    
-    static func createPreviewGlobalPlayerView() -> some View {
-        let globalPlayerService = GlobalPlayerService(player: MockPlayerService())
-        let track = Track(
-            id: "testtrack",
-            title: "Test Track",
-            version: 2,
-            url: URL(fileURLWithPath: "filesystem/track.wav")
-        )
-        globalPlayerService.loadAndPlay(track, shouldPlay: false)
-        return GlobalPlayerView()
-            .environmentObject(globalPlayerService)
     }
 }
 
@@ -113,6 +107,10 @@ fileprivate struct PreviewNoteService: NoteServiceProtocol {
     }
     
     func deleteNote(_ note: Note) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { $0(.success(())) }.eraseToAnyPublisher()
+    }
+    
+    func deleteNotes(_ notes: [Note]) -> AnyPublisher<Void, Error> {
         return Future<Void, Error> { $0(.success(())) }.eraseToAnyPublisher()
     }
 }

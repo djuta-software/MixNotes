@@ -69,7 +69,7 @@ class FileService: FileServiceProtocol {
         do {
             try fileManager.startDownloadingUbiquitousItem(at: url)
             return onDownloadStatusChange(for: url, when: .current)
-                .map { $0.getRemoteURL() }
+                .map { $0.getLocalURL() }
                 .eraseToAnyPublisher()
         } catch {
             return createFailedPublisher(error: error)

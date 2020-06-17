@@ -114,17 +114,4 @@ class GlobalPlayerServiceTests: XCTestCase {
         globalPlayerService?.togglePlayPause()
         assertIsInPausedState()
     }
-    
-    func testHidePlayer() {
-        XCTAssert(globalPlayerService!.isVisible)
-        globalPlayerService?.hidePlayer()
-        XCTAssert(!globalPlayerService!.isVisible)
-    }
-    
-    func testShowPlayer() {
-        globalPlayerService?.hidePlayer()
-        XCTAssert(!globalPlayerService!.isVisible)
-        globalPlayerService?.showPlayer()
-        XCTAssert(globalPlayerService!.isVisible)
-    }
 }

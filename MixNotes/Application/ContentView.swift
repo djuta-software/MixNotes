@@ -19,7 +19,7 @@ struct ContentView: View {
                 NavigationView {
                     mainView
                 }
-                GlobalPlayerView()
+                
             }
             GlobalMessageView(globalMessageService: globalMessageService)
         }

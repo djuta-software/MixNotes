@@ -6,4 +6,8 @@ struct SFIcon {
     static let DOWNLOADING = "hourglass"
     static let ERROR = "square.and.arrow.down"
     static let DELETE = "trash"
+    static let EMPTY_LIST = "headphones"
+    static let REFRESH = "arrow.clockwise"
+    static let INFO = "info.circle"
+    static let CONTEXT_MENU = "ellipsis"
 }

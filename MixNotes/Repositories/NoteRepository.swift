@@ -6,6 +6,7 @@ protocol NoteRepositoryProtocol {
     func getNotes(for track: Track) -> AnyPublisher<[Note], Error>
     func addNote(for track: Track, at timestamp: Int, text: String) -> AnyPublisher<Note, Error>
     func deleteNote(_ note: Note) -> AnyPublisher<Void, Error>
+    func deleteNotes(_ notes: [Note]) -> AnyPublisher<Void, Error>
 }
 
 enum NoteRepositoryError: Error {
@@ -74,6 +75,22 @@ struct NoteRepository: NoteRepositoryProtocol {
                 }
                 promise(.success(()))
             }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func deleteNotes(_ notes: [Note]) -> AnyPublisher<Void, Error> {
+        return Future<Void, Error> { promise in
+            let recordIDs = notes.map { CKRecord.ID(recordName: $0.id) }
+            let operation = CKModifyRecordsOperation(recordsToSave: nil, recordIDsToDelete: recordIDs)
+            operation.modifyRecordsCompletionBlock = { (_, _, deleteError) in
+                if let error = deleteError {
+                    promise(.failure(error))
+                    return
+                }
+                promise(.success(()))
+            }
+            self.database.add(operation)
         }
         .eraseToAnyPublisher()
     }

@@ -6,7 +6,6 @@ enum MockNoteRepositoryError: Error {
 }
 
 class MockNoteRepository: NoteRepositoryProtocol {
-   
     var notes: [String: [Note]] = [:]
     var isInErrorState = false
     
@@ -44,7 +43,23 @@ class MockNoteRepository: NoteRepositoryProtocol {
         }
         return Future<Void, Error> { promise in
             if(self.isInErrorState) {
-                promise(.failure(MockNoteRepositoryError.addError))
+                promise(.failure(MockNoteRepositoryError.deleteError))
+                return
+            }
+            promise(.success(()))
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func deleteNotes(_ notesToDelete: [Note]) -> AnyPublisher<Void, Error> {
+        for note in notesToDelete {
+            for (key, _) in notes {
+                notes[key]?.removeAll { $0.id == note.id }
+            }
+        }
+        return Future<Void, Error> { promise in
+            if(self.isInErrorState) {
+                promise(.failure(MockNoteRepositoryError.deleteError))
                 return
             }
             promise(.success(()))

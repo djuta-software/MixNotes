@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0E0D502491BC4B00C9DE58 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E0D4F2491BC4B00C9DE58 /* EmptyListView.swift */; };
 		8A0F4732245A5D4300EF54AA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A0F4731245A5D4300EF54AA /* CloudKit.framework */; };
-		8A1BC4A02460EDCC001297F6 /* GlobalPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC49F2460EDCC001297F6 /* GlobalPlayerView.swift */; };
 		8A1BC4A32460EF76001297F6 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC4A22460EF76001297F6 /* UIConstants.swift */; };
 		8A1BC4A52460EF96001297F6 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC4A42460EF96001297F6 /* Localization.swift */; };
 		8A1BC4A72460EFAD001297F6 /* SFIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC4A62460EFAD001297F6 /* SFIcon.swift */; };
@@ -71,8 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A0E0D4F2491BC4B00C9DE58 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		8A0F4731245A5D4300EF54AA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		8A1BC49F2460EDCC001297F6 /* GlobalPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalPlayerView.swift; sourceTree = "<group>"; };
 		8A1BC4A22460EF76001297F6 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		8A1BC4A42460EF96001297F6 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		8A1BC4A62460EFAD001297F6 /* SFIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFIcon.swift; sourceTree = "<group>"; };
@@ -218,10 +218,10 @@
 				8A5079D8245919620030703E /* Models */,
 				8A5079D5245919450030703E /* UI */,
 				8A5079D3245919330030703E /* Services */,
-				8A5079D2245918FC0030703E /* Application */,
 				8A5079A8245918D90030703E /* Assets.xcassets */,
 				8A5079B0245918D90030703E /* Info.plist */,
 				8A5079AD245918D90030703E /* LaunchScreen.storyboard */,
+				8A5079D2245918FC0030703E /* Application */,
 				8A5079AA245918D90030703E /* Preview Content */,
 			);
 			path = MixNotes;
@@ -375,8 +375,8 @@
 		FBDA0FA4248F248A00DAFF9A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8A1BC49F2460EDCC001297F6 /* GlobalPlayerView.swift */,
 				8AAEBABD245CA3800028EA54 /* GlobalMessageView.swift */,
+				8A0E0D4F2491BC4B00C9DE58 /* EmptyListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -518,12 +518,12 @@
 				8AAEBABE245CA3800028EA54 /* GlobalMessageView.swift in Sources */,
 				8A7B0BF4248F26B90067283C /* PreviewUtils.swift in Sources */,
 				8A5079A3245918D60030703E /* AppDelegate.swift in Sources */,
+				8A0E0D502491BC4B00C9DE58 /* EmptyListView.swift in Sources */,
 				8A1BC4A72460EFAD001297F6 /* SFIcon.swift in Sources */,
 				8A7B0BF6248F2D310067283C /* MockNoteRepository.swift in Sources */,
 				8A5079EB245922E80030703E /* TrackView.swift in Sources */,
 				8A5079E524591D8F0030703E /* ProjectsViewModel.swift in Sources */,
 				8A7B0BF7248F2D340067283C /* MockPlayerService.swift in Sources */,
-				8A1BC4A02460EDCC001297F6 /* GlobalPlayerView.swift in Sources */,
 				8A5079A5245918D60030703E /* SceneDelegate.swift in Sources */,
 				8A5079E124591A760030703E /* Note.swift in Sources */,
 				8A4A319B245DE23F0058DE9F /* PlayerService.swift in Sources */,

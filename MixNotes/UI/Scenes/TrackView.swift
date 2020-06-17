@@ -13,6 +13,7 @@ struct TrackView: View {
     
     @EnvironmentObject var globalPlayerService: GlobalPlayerService
     @ObservedObject var viewModel: TrackViewModel
+    @State private var offsetValue: CGFloat = 0.0
     @State var newNote = ""
     
     var body: some View {
@@ -20,13 +21,39 @@ struct TrackView: View {
             trackData
             Spacer().frame(maxWidth: .infinity)
             notes
+            Text(viewModel.downloadStatus.rawValue)
             Spacer().frame(maxWidth: .infinity)
             noteInput
             player
         }
         .navigationBarTitle(viewModel.track.title)
+        .navigationBarItems(trailing: contextMenu)
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
+    }
+    
+    var contextMenu: some View {
+        Image(systemName: SFIcon.CONTEXT_MENU)
+            .contextMenu {
+                removeAllNotes
+                removeDownloadButton
+            }
+    }
+    
+    var removeDownloadButton: some View {
+        Button(action: viewModel.evictTrack) {
+            Text("Remove Download")
+        }
+        .disabled(
+            viewModel.downloadStatus != .current &&
+            viewModel.downloadStatus != .stale
+        )
+    }
+    
+    var removeAllNotes: some View {
+        Button(action: viewModel.deleteNotes) {
+            Text("Remove all notes")
+        }
     }
     
     var notes: some View {
@@ -90,6 +117,8 @@ struct TrackView: View {
                 .background(Color.orange)
                 .clipShape(Circle())
             }
+            .disabled(viewModel.downloadStatus == .evicting)
+            .disabled(viewModel.downloadStatus == .downloading)
         }
         .frame(
             minWidth: 0,
@@ -111,6 +140,9 @@ struct TrackView: View {
         }
         if viewModel.downloadStatus == .current {
             return globalPlayerService.isPlaying ? .pause : .play
+        }
+        if viewModel.downloadStatus == .downloading {
+            return .downloading
         }
         return .error
     }
@@ -166,13 +198,12 @@ struct TrackView: View {
     }
     
     func onAppear() {
-        globalPlayerService.hidePlayer()
         viewModel.checkIfTrackIsDownloaded()
         viewModel.fetchNotes()
     }
     
     func onDisappear() {
-        globalPlayerService.showPlayer()
+        globalPlayerService.pause()
     }
     
     var isDownloadingDisabled: Bool {

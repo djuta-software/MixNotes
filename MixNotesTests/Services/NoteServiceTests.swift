@@ -83,8 +83,8 @@ class NoteServiceTests: XCTestCase {
         MixNotes_XCTAssertPublisherFinishes(
             expectation: expectation,
             publisher: publisher
-        ) { notes in
-            let note = notes.first { $0.id == lastNote.id }
+        ) { newNotes in
+            let note = newNotes.first { $0.id == lastNote.id }
             XCTAssertNil(note)
         }
     }
@@ -97,6 +97,34 @@ class NoteServiceTests: XCTestCase {
         let lastNote = notes.last!
         noteRepository?.isInErrorState = true
         let publisher = noteService!.deleteNote(lastNote)
+        MixNotes_XCTAssertPublisherErrors(
+            expectation: expectation,
+            publisher: publisher
+        )
+    }
+    
+    
+    func testDeleteNotes() {
+        let expectation = XCTestExpectation(description: "Delete notes should succeed")
+        var notes: [Note] = []
+        _ = noteService?.getNotes(for: testTrack)
+            .sink(receiveCompletion: { _ in }, receiveValue: { notes = $0 })
+        XCTAssert(notes.count == 3)
+        _ = noteService!.deleteNotes(notes)
+        let publisher = noteService!.getNotes(for: testTrack)
+        MixNotes_XCTAssertPublisherFinishes(
+            expectation: expectation,
+            publisher: publisher
+        ) { XCTAssert($0.isEmpty) }
+    }
+    
+    func testDeleteNotesErrors() {
+        let expectation = XCTestExpectation(description: "Delete notes should fail")
+        var notes: [Note] = []
+        _ = noteService?.getNotes(for: testTrack)
+            .sink(receiveCompletion: { _ in }, receiveValue: { notes = $0 })
+        noteRepository?.isInErrorState = true
+        let publisher = noteService!.deleteNotes(notes)
         MixNotes_XCTAssertPublisherErrors(
             expectation: expectation,
             publisher: publisher

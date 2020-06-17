@@ -97,8 +97,6 @@ class TrackViewModelTests: XCTestCase {
         XCTAssert(viewModel?.downloadStatus == .downloading)
         MixNotes_XCTAssertWithDelay(expectation: expectation) {
             XCTAssert(self.viewModel?.track.url.path == "/local/Project 1/Track 1")
-            XCTAssert(self.globalMessageService?.currentMessage == "Download Successful!")
-            XCTAssert(self.globalMessageService?.currentType == .success)
         }
     }
     
@@ -121,8 +119,8 @@ class TrackViewModelTests: XCTestCase {
         XCTAssert(viewModel?.downloadStatus == .evicting)
         MixNotes_XCTAssertWithDelay(expectation: expectation) {
             XCTAssert(self.viewModel?.track.url.path == "/remote/Project 1/Track 1")
-            XCTAssert(self.globalMessageService?.currentMessage == "Eviction Successful!")
-            XCTAssert(self.globalMessageService?.currentType == .success)
+            XCTAssert(self.globalMessageService?.currentMessage == "Track Removed")
+            XCTAssert(self.globalMessageService?.currentType == .info)
         }
     }
     
@@ -174,7 +172,7 @@ class TrackViewModelTests: XCTestCase {
         MixNotes_XCTAssertWithDelay(expectation: expectation, delay: 2) {
             XCTAssert(self.viewModel?.notes.count == 0)
             XCTAssert(self.globalMessageService?.currentMessage == "Note deleted!")
-            XCTAssert(self.globalMessageService?.currentType == .success)
+            XCTAssert(self.globalMessageService?.currentType == .info)
         }
     }
     

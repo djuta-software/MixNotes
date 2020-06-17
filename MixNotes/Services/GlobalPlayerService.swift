@@ -13,7 +13,6 @@ class GlobalPlayerService: ObservableObject {
     
     @Published private(set) var state: GlobalPlayerServiceState = .stopped
     @Published private(set) var currentTrack: Track?
-    @Published private(set) var isVisible = true
     @Published private(set) var currentTime: Int = 0
     
     
@@ -58,14 +57,6 @@ class GlobalPlayerService: ObservableObject {
         } else {
             play()
         }
-    }
-    
-    func hidePlayer() {
-        isVisible = false
-    }
-    
-    func showPlayer() {
-        isVisible = true
     }
     
     var isPlaying: Bool {
