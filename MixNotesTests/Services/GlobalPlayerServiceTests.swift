@@ -114,4 +114,20 @@ class GlobalPlayerServiceTests: XCTestCase {
         globalPlayerService?.togglePlayPause()
         assertIsInPausedState()
     }
+    
+    func testSkipBackward() {
+        let track = createMockTrack()
+        globalPlayerService?.loadAndPlay(track)
+        playerService?.currentTime = 27
+        globalPlayerService?.skipBackward(numberOfSeconds: 10)
+        XCTAssert(playerService?.currentTime == 17)
+    }
+    
+    func testSkipForward() {
+        let track = createMockTrack()
+        globalPlayerService?.loadAndPlay(track)
+        playerService?.currentTime = 27
+        globalPlayerService?.skipForward(numberOfSeconds: 10)
+        XCTAssert(playerService?.currentTime == 37)
+    }
 }

@@ -8,6 +8,8 @@ protocol PlayerServiceProtocol {
     func load(url: URL, shouldPlay: Bool) throws
     func play() throws
     func pause()
+    func skipBackward(numberOfSeconds: Double)
+    func skipForward(numberOfSeconds: Double)
 }
 
 enum PlayerServiceError: Error {
@@ -56,6 +58,24 @@ class PlayerService: NSObject, PlayerServiceProtocol {
     func pause() {
         player?.pause()
         invalidateTimer()
+    }
+    
+    func skipBackward(numberOfSeconds: Double) {
+        guard let player = self.player else {
+            return
+        }
+        let targetTime = player.currentTime - numberOfSeconds
+        let newTime = targetTime > 0 ? targetTime : 0
+        player.currentTime = newTime
+    }
+    
+    func skipForward(numberOfSeconds: Double) {
+        guard let player = self.player else {
+            return
+        }
+        let targetTime = player.currentTime + numberOfSeconds
+        let newTime = targetTime < player.duration ? targetTime : player.duration
+        player.currentTime = newTime
     }
     
     var url: URL?  {

@@ -59,6 +59,14 @@ class GlobalPlayerService: ObservableObject {
         }
     }
     
+    func skipBackward(numberOfSeconds: Double) {
+        player.skipBackward(numberOfSeconds: numberOfSeconds)
+    }
+    
+    func skipForward(numberOfSeconds: Double) {
+        player.skipForward(numberOfSeconds: numberOfSeconds)
+    }
+    
     var isPlaying: Bool {
         return player.isPlaying
     }

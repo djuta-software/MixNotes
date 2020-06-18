@@ -15,6 +15,7 @@ struct TrackView: View {
     @ObservedObject var viewModel: TrackViewModel
     @State private var offsetValue: CGFloat = 0.0
     @State var newNote = ""
+    let skipSeconds = 10.0
     
     var body: some View {
         VStack {
@@ -111,14 +112,30 @@ struct TrackView: View {
     
     var player: some View {
         VStack {
-            Button(action: onButtonClick) {
-                Image(systemName: buttonIcon)
-                .frame(width: 75, height: 75)
-                .background(Color.orange)
-                .clipShape(Circle())
+            HStack {
+                Button(action: skipBackward) {
+                    Image(systemName: SFIcon.SKIP_BACKWARD)
+                        .frame(width: 50, height: 50)
+                        .background(Color.orange)
+                        .clipShape(Circle())
+                }
+                
+                Button(action: onButtonClick) {
+                    Image(systemName: buttonIcon)
+                        .frame(width: 75, height: 75)
+                        .background(Color.orange)
+                        .clipShape(Circle())
+                }
+                .disabled(viewModel.downloadStatus == .evicting)
+                .disabled(viewModel.downloadStatus == .downloading)
+                
+                Button(action: skipForward) {
+                    Image(systemName: SFIcon.SKIP_FORWARD)
+                        .frame(width: 50, height: 50)
+                        .background(Color.orange)
+                        .clipShape(Circle())
+                }
             }
-            .disabled(viewModel.downloadStatus == .evicting)
-            .disabled(viewModel.downloadStatus == .downloading)
         }
         .frame(
             minWidth: 0,
@@ -128,6 +145,15 @@ struct TrackView: View {
         )
         .background(Color.pink)
     }
+    
+    func skipBackward() {
+        globalPlayerService.skipBackward(numberOfSeconds: skipSeconds)
+    }
+
+    func skipForward() {
+        globalPlayerService.skipForward(numberOfSeconds: skipSeconds)
+    }
+    
     
     var buttonState: ButtonState {
         let shouldDownload = (
