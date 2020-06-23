@@ -13,8 +13,9 @@ struct TrackView: View {
     
     @EnvironmentObject var globalPlayerService: GlobalPlayerService
     @ObservedObject var viewModel: TrackViewModel
-    @State private var offsetValue: CGFloat = 0.0
     @State var newNote = ""
+    @State var currentTime = 0.0
+    
     let skipSeconds = 10.0
     
     var body: some View {
@@ -22,7 +23,6 @@ struct TrackView: View {
             trackData
             Spacer().frame(maxWidth: .infinity)
             notes
-            Text(viewModel.downloadStatus.rawValue)
             Spacer().frame(maxWidth: .infinity)
             noteInput
             player
@@ -112,6 +112,10 @@ struct TrackView: View {
     
     var player: some View {
         VStack {
+            Slider(
+                value: $globalPlayerService.currentTime,
+                in: 0...globalPlayerService.duration
+            ) { self.globalPlayerService.isScrubbing = $0 }
             HStack {
                 Button(action: skipBackward) {
                     Image(systemName: SFIcon.SKIP_BACKWARD)
@@ -141,7 +145,7 @@ struct TrackView: View {
             minWidth: 0,
             maxWidth: .infinity,
             minHeight: 0,
-            maxHeight: 200
+            maxHeight: 300
         )
         .background(Color.pink)
     }
@@ -213,7 +217,7 @@ struct TrackView: View {
         if(newNote.isEmpty) {
             return
         }
-        let timestamp = globalPlayerService.currentTime
+        let timestamp = Int(round(globalPlayerService.currentTime))
         viewModel.addNote(at: timestamp, text: newNote)
         newNote = ""
     }
@@ -244,16 +248,12 @@ struct TrackView: View {
         viewModel.downloadStatus == .remote
     }
     
-    var currentTime: Int {
-        return globalPlayerService.currentTime
-    }
-    
     var currentNote: Note? {
         if(globalPlayerService.currentTrack != viewModel.track) {
             return nil
         }
         return viewModel.notes.last {
-            $0.timestamp <= globalPlayerService.currentTime
+            $0.timestamp <= Int(round(globalPlayerService.currentTime))
         }
     }
 }

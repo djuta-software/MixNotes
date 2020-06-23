@@ -11,6 +11,7 @@ class MockPlayerService: PlayerServiceProtocol {
     var isInErrorState = false
     var isPlaying = false
     var currentTime = 0.0
+    var duration = 0.0
 
     func load(url: URL, shouldPlay: Bool) throws {
         isPlaying = false
@@ -40,5 +41,9 @@ class MockPlayerService: PlayerServiceProtocol {
     
     func skipForward(numberOfSeconds: Double) {
         currentTime = currentTime + numberOfSeconds
+    }
+    
+    func setTime(_ time: Double) {
+        currentTime = time
     }
 }

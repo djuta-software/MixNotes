@@ -13,7 +13,15 @@ class GlobalPlayerService: ObservableObject {
     
     @Published private(set) var state: GlobalPlayerServiceState = .stopped
     @Published private(set) var currentTrack: Track?
-    @Published private(set) var currentTime: Int = 0
+    @Published var currentTime: Double = 0
+    @Published private(set) var duration: Double = 0
+    @Published var isScrubbing = false {
+        didSet {
+            if !isScrubbing {
+                player.setTime(currentTime)
+            }
+        }
+    }
     
     
     var player: PlayerServiceProtocol
@@ -32,6 +40,7 @@ class GlobalPlayerService: ObservableObject {
             currentTrack = track
             try player.load(url: track.url, shouldPlay: shouldPlay)
             state = shouldPlay ? .playing : .paused
+            duration = player.duration
         } catch {
             state = .error
         }
@@ -81,6 +90,8 @@ extension GlobalPlayerService: PlayerServiceDelegate {
     }
     
     func onCurrentTimeUpdate(currentTime: Double) {
-        self.currentTime = Int(round(currentTime))
+        if !isScrubbing {
+            self.currentTime = currentTime
+        }
     }
 }
