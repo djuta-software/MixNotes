@@ -2,12 +2,17 @@ import Foundation
 
 class ProjectViewModel: ObservableObject {
     
+    enum State {
+        case empty, populated, loading
+    }
+    
     let project: Project
     let projectService: ProjectServiceProtocol
     let noteService: NoteServiceProtocol
     let globalMessageService: GlobalMessageServiceProtocol
     
     @Published var tracks: [Track] = []
+    @Published var currentState = State.empty
     
     init(
         project: Project,
@@ -23,7 +28,9 @@ class ProjectViewModel: ObservableObject {
     
     func fetchTracks() {
         do {
+            currentState = .loading
             tracks = try projectService.getTracks(for: project)
+            currentState = tracks.isEmpty ? .empty : .populated
         } catch {
             globalMessageService.setErrorMessage("Error fetching tracks")
         }

@@ -34,6 +34,13 @@ class PlayerService: NSObject, PlayerServiceProtocol {
     
     override init() {
         super.init()
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print(error)
+        }
+
     }
     
     func load(url: URL, shouldPlay: Bool = true) throws {

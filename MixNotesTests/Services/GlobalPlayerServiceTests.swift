@@ -35,6 +35,10 @@ class GlobalPlayerServiceTests: XCTestCase {
     private func assertIsSameTrack(_ track: Track) {
         XCTAssert(globalPlayerService?.currentTrack == track)
     }
+    
+    private func assertDurationIsSet() {
+        XCTAssert(globalPlayerService?.duration == playerService?.duration)
+    }
 
     
     func testLoadAndPlay() {
@@ -42,6 +46,8 @@ class GlobalPlayerServiceTests: XCTestCase {
         globalPlayerService?.loadAndPlay(track)
         assertIsSameTrack(track)
         assertIsInPlayingState()
+        assertDurationIsSet()
+        
     }
     
     func testLoadAndPlayInPauseState() {
@@ -49,6 +55,7 @@ class GlobalPlayerServiceTests: XCTestCase {
         globalPlayerService?.loadAndPlay(track, shouldPlay: false)
         assertIsSameTrack(track)
         assertIsInPausedState()
+        assertDurationIsSet()
     }
     
     func testLoadAndPlayWithSameUrl() {
@@ -58,6 +65,7 @@ class GlobalPlayerServiceTests: XCTestCase {
         globalPlayerService?.loadAndPlay(track)
         assertIsSameTrack(track)
         assertIsInPlayingState()
+        assertDurationIsSet()
     }
     
     func testLoadAndPlayErrors() {
@@ -66,6 +74,7 @@ class GlobalPlayerServiceTests: XCTestCase {
         globalPlayerService?.loadAndPlay(track, shouldPlay: false)
         assertIsSameTrack(track)
         assertIsInErrorState()
+        XCTAssert(globalPlayerService?.duration == 0)
     }
     
     func testPlay() {
@@ -129,5 +138,40 @@ class GlobalPlayerServiceTests: XCTestCase {
         playerService?.currentTime = 27
         globalPlayerService?.skipForward(numberOfSeconds: 10)
         XCTAssert(playerService?.currentTime == 37)
+    }
+    
+    func testOnTrackEnd() {
+        let track = createMockTrack()
+        globalPlayerService?.loadAndPlay(track)
+        assertIsInPlayingState()
+        globalPlayerService?.onTrackEnd()
+        assertIsInPausedState()
+        XCTAssert(globalPlayerService?.currentTime == 0)
+    }
+    
+    func testOnCurrentTimeUpdate() {
+        let track = createMockTrack()
+        globalPlayerService?.loadAndPlay(track)
+        XCTAssert(globalPlayerService?.currentTime == 0)
+        globalPlayerService?.onCurrentTimeUpdate(currentTime: 27)
+        XCTAssert(globalPlayerService?.currentTime == 27)
+    }
+    
+    func testCurrentTimeDoesntUpdateWhenScrubbing() {
+        let track = createMockTrack()
+        globalPlayerService?.loadAndPlay(track)
+        XCTAssert(globalPlayerService?.currentTime == 0)
+        globalPlayerService?.isScrubbing = true
+        globalPlayerService?.onCurrentTimeUpdate(currentTime: 27)
+        XCTAssert(globalPlayerService?.currentTime == 0)
+    }
+    
+    func testSettingIsScrubbingFalseUpdatesPlayerCurrentTime() {
+        let track = createMockTrack()
+        globalPlayerService?.loadAndPlay(track)
+        globalPlayerService?.currentTime = 27
+        globalPlayerService?.isScrubbing = true
+        globalPlayerService?.isScrubbing = false
+        XCTAssert(playerService?.currentTime == 27)   
     }
 }

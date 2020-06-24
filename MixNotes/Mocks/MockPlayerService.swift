@@ -19,6 +19,7 @@ class MockPlayerService: PlayerServiceProtocol {
         if isInErrorState {
             throw MockPlayerServiceError.loadFailure
         }
+        duration = 10
         if shouldPlay {
             try play()
         }

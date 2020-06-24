@@ -4,32 +4,41 @@ struct ProjectView: View {
     @ObservedObject var viewModel: ProjectViewModel
 
     var body: some View {
-        list
-        .navigationBarTitle(viewModel.project.title)
-        .navigationBarItems(trailing: refreshButton)
-        .onAppear(perform: viewModel.fetchTracks)
+        currentView
+            .navigationBarTitle(viewModel.project.title)
+            .navigationBarItems(trailing: refreshButton)
+            .onAppear(perform: viewModel.fetchTracks)
+    }
+    
+    var currentView: some View {
+        switch viewModel.currentState {
+        case .empty:
+            return AnyView(createMessageView())
+        default:
+            return AnyView(createListView())
+        }
     }
     
     var refreshButton: some View {
-        Button(action: viewModel.fetchTracks) {
-            Image(systemName: SFIcon.REFRESH)
-        }
+        let isLoading = viewModel.currentState == .loading
+        let systemName = isLoading ? SFIcon.LOADING : SFIcon.REFRESH
+        return ImageButton(systemName: systemName, action: viewModel.fetchTracks)
     }
     
-    var list: some View {
-        if(viewModel.tracks.isEmpty) {
-            let view = EmptyListView(
-                title: "No Tracks",
-                systemImageName: SFIcon.EMPTY_LIST,
-                description: "To get started upload a track to the \"\(viewModel.project.title)\" folder in the MixNotes folder on your iCloud drive")
-            return AnyView(view)
-        }
-        let view = List(viewModel.tracks, id: \.id) { track in
+    private func createListView() -> some View {
+        List(viewModel.tracks, id: \.id) { track in
             NavigationLink(destination: self.viewModel.createTrackView(for: track)) {
                 Text(track.title)
             }
         }
-        return AnyView(view)
+    }
+    
+    private func createMessageView() -> some View {
+        EmptyListView(
+            title: "No Tracks",
+            systemImageName: SFIcon.EMPTY_LIST,
+            description: "To get started upload a track to the \"\(viewModel.project.title)\" folder in the MixNotes folder on your iCloud drive"
+        )
     }
 }
 

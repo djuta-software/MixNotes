@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A011FBC24A2E9DF004BFF7B /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A011FBB24A2E9DF004BFF7B /* ImageButton.swift */; };
 		8A0E0D502491BC4B00C9DE58 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0E0D4F2491BC4B00C9DE58 /* EmptyListView.swift */; };
 		8A0F4732245A5D4300EF54AA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A0F4731245A5D4300EF54AA /* CloudKit.framework */; };
 		8A1BC4A32460EF76001297F6 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC4A22460EF76001297F6 /* UIConstants.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A011FBB24A2E9DF004BFF7B /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		8A0E0D4F2491BC4B00C9DE58 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		8A0F4731245A5D4300EF54AA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8A1BC4A22460EF76001297F6 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
@@ -209,10 +211,10 @@
 		8A5079A1245918D60030703E /* MixNotes */ = {
 			isa = PBXGroup;
 			children = (
+				8A1BC4A82460F6EE001297F6 /* Extensions */,
 				8AAA0E20246A233F002D7AA1 /* Mocks */,
 				8A7B0BF2248F26990067283C /* Utils */,
 				8A7428B2246382D900122D3A /* Repositories */,
-				8A1BC4A82460F6EE001297F6 /* Extensions */,
 				8A1BC4A12460EF56001297F6 /* Constants */,
 				8A5079DB2459197E0030703E /* ViewModels */,
 				8A5079D8245919620030703E /* Models */,
@@ -377,6 +379,7 @@
 			children = (
 				8AAEBABD245CA3800028EA54 /* GlobalMessageView.swift */,
 				8A0E0D4F2491BC4B00C9DE58 /* EmptyListView.swift */,
+				8A011FBB24A2E9DF004BFF7B /* ImageButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				8A7B0BF4248F26B90067283C /* PreviewUtils.swift in Sources */,
 				8A5079A3245918D60030703E /* AppDelegate.swift in Sources */,
 				8A0E0D502491BC4B00C9DE58 /* EmptyListView.swift in Sources */,
+				8A011FBC24A2E9DF004BFF7B /* ImageButton.swift in Sources */,
 				8A1BC4A72460EFAD001297F6 /* SFIcon.swift in Sources */,
 				8A7B0BF6248F2D310067283C /* MockNoteRepository.swift in Sources */,
 				8A5079EB245922E80030703E /* TrackView.swift in Sources */,

@@ -2,11 +2,16 @@ import Foundation
 
 class ProjectsViewModel: ObservableObject {
     
+    enum State {
+        case empty, populated, loading
+    }
+    
     let projectService: ProjectServiceProtocol
     let noteService: NoteServiceProtocol
     let globalMessageService: GlobalMessageServiceProtocol
     
     @Published var projects: [Project] = []
+    @Published var currentState = State.empty
     
     init(
         projectService: ProjectServiceProtocol,
@@ -20,7 +25,9 @@ class ProjectsViewModel: ObservableObject {
     
     func fetchProjects() {
         do {
+            currentState = .loading
             projects = try projectService.getProjects()
+            currentState = projects.isEmpty ? .empty : .populated
         } catch {
             globalMessageService.setErrorMessage("Error fetching projects")
         }  

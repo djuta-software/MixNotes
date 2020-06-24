@@ -11,39 +11,45 @@ import SwiftUI
 struct ProjectsView: View {
     @ObservedObject var viewModel: ProjectsViewModel
     var body: some View {
-        list
+        currentView
             .navigationBarTitle("Projects")
             .navigationBarItems(leading: infoButton, trailing: refreshButton)
             .onAppear(perform: viewModel.fetchProjects)
     }
     
-    var infoButton: some View {
-        Button(action: {}) {
-            Image(systemName: SFIcon.INFO)
+    var currentView: some View {
+        switch viewModel.currentState {
+        case .empty:
+            return AnyView(createMessageView())
+        default:
+            return AnyView(createListView())
         }
     }
     
-    var list: some View {
-        if(viewModel.projects.isEmpty) {
-            let view = EmptyListView(
-                title: "No Projects",
-                systemImageName: SFIcon.EMPTY_LIST,
-                description: "To get started, create a project folder in the MixNotes folder in your iCloud drive and upload a track"
-            )
-            return AnyView(view)
-        }
-        let view = List(viewModel.projects, id: \.id) { project in
+    var refreshButton: some View {
+        let isLoading = viewModel.currentState == .loading
+        let systemName = isLoading ? SFIcon.LOADING : SFIcon.REFRESH
+        return ImageButton(systemName: systemName, action: viewModel.fetchProjects)
+    }
+    
+    var infoButton: some View {
+        ImageButton(systemName: SFIcon.INFO, action: {})
+    }
+    
+    private func createListView() -> some View {
+        List(viewModel.projects, id: \.id) { project in
             NavigationLink(destination: self.viewModel.createProjectView(for: project)) {
                 Text(project.title)
             }
         }
-        return AnyView(view)
     }
     
-    var refreshButton: some View {
-        Button(action: viewModel.fetchProjects) {
-            Image(systemName: SFIcon.REFRESH)
-        }
+    private func createMessageView() -> some View {
+        EmptyListView(
+            title: "No Projects",
+            systemImageName: SFIcon.EMPTY_LIST,
+            description: "To get started, create a project folder in the MixNotes folder in your iCloud drive and upload a track"
+        )
     }
 }
 

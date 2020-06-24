@@ -14,7 +14,6 @@ struct TrackView: View {
     @EnvironmentObject var globalPlayerService: GlobalPlayerService
     @ObservedObject var viewModel: TrackViewModel
     @State var newNote = ""
-    @State var currentTime = 0.0
     
     let skipSeconds = 10.0
     
