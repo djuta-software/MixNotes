@@ -28,7 +28,9 @@ class ProjectViewModelTests: XCTestCase {
     }
     
     func testFetchTracks() {
+        XCTAssert(viewModel?.currentState == .empty)
         viewModel?.fetchTracks()
+        XCTAssert(viewModel?.currentState == .populated)
         for (index, track) in viewModel!.tracks.enumerated() {
             let expectedTitle = "Track \(index + 1)"
             XCTAssert(track.id == "Project 1-\(expectedTitle)")

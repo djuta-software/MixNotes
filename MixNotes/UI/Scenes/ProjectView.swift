@@ -10,7 +10,7 @@ struct ProjectView: View {
             .onAppear(perform: viewModel.fetchTracks)
     }
     
-    var currentView: some View {
+    private var currentView: some View {
         switch viewModel.currentState {
         case .empty:
             return AnyView(createMessageView())
@@ -19,7 +19,7 @@ struct ProjectView: View {
         }
     }
     
-    var refreshButton: some View {
+    private var refreshButton: some View {
         let isLoading = viewModel.currentState == .loading
         let systemName = isLoading ? SFIcon.LOADING : SFIcon.REFRESH
         return ImageButton(systemName: systemName, action: viewModel.fetchTracks)

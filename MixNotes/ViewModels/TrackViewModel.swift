@@ -3,7 +3,7 @@ import Combine
 
 class TrackViewModel: ObservableObject {
 
-    enum DownloadStatus: String {
+    enum DownloadState: String {
         case current = "Downloaded"
         case stale = "Out of Date"
         case remote = "Not Downloaded"
@@ -18,7 +18,7 @@ class TrackViewModel: ObservableObject {
 
     @Published var track: Track
     @Published var notes: [Note] = []
-    @Published var downloadStatus: DownloadStatus = .remote
+    @Published var downloadState = DownloadState.remote
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -54,27 +54,27 @@ class TrackViewModel: ObservableObject {
         let status = projectService.getTrackDownloadStatus(track)
         switch status {
         case .downloaded:
-            downloadStatus = .current   
+            downloadState = .current
         case .stale:
-            downloadStatus = .stale
+            downloadState = .stale
         case .error:
-            downloadStatus = .error
+            downloadState = .error
         case .notDownloaded:
-            downloadStatus = .remote
+            downloadState = .remote
         }
     }
     
     func downloadTrack() {
-        downloadStatus = .downloading
+        downloadState = .downloading
         _ = projectService.downloadTrack(track)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure:
-                    self.downloadStatus = .error
+                    self.downloadState = .error
                     self.globalMessageService.setErrorMessage("Download Failed")
                 case .finished:
-                    self.downloadStatus = .current
+                    self.downloadState = .current
                 }
             }, receiveValue: {
                 self.track.url = $0
@@ -83,7 +83,7 @@ class TrackViewModel: ObservableObject {
     }
     
     func evictTrack() {
-        downloadStatus = .evicting
+        downloadState = .evicting
         _ = projectService.evictTrack(track)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
@@ -92,7 +92,7 @@ class TrackViewModel: ObservableObject {
                     self.globalMessageService.setErrorMessage("Eviction Failed")
                 case .finished:
                     self.globalMessageService.setInfoMessage("Track Removed")
-                    self.downloadStatus = .remote
+                    self.downloadState = .remote
                 }
             }, receiveValue: { self.track.url = $0 })
             .store(in: &cancellables)

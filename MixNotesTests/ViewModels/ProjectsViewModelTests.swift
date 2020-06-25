@@ -26,7 +26,9 @@ class ProjectsViewModelTests: XCTestCase {
     }
     
     func testFetchProjects() {
+        XCTAssert(viewModel?.currentState == .empty)
         viewModel?.fetchProjects()
+        XCTAssert(viewModel?.currentState == .populated)
         for (index, project) in viewModel!.projects.enumerated() {
             let expectedTitle = "Project \(index + 1)"
             XCTAssert(project.id == expectedTitle)

@@ -15,8 +15,6 @@ struct TrackView: View {
     @ObservedObject var viewModel: TrackViewModel
     @State var newNote = ""
     
-    let skipSeconds = 10.0
-    
     var body: some View {
         VStack {
             trackData
@@ -29,61 +27,26 @@ struct TrackView: View {
         .navigationBarTitle(viewModel.track.title)
         .navigationBarItems(trailing: contextMenu)
         .onAppear(perform: onAppear)
-        .onDisappear(perform: onDisappear)
     }
     
-    var contextMenu: some View {
+    private var contextMenu: some View {
         Image(systemName: SFIcon.CONTEXT_MENU)
             .contextMenu {
-                removeAllNotes
-                removeDownloadButton
-            }
-    }
-    
-    var removeDownloadButton: some View {
-        Button(action: viewModel.evictTrack) {
-            Text("Remove Download")
-        }
-        .disabled(
-            viewModel.downloadStatus != .current &&
-            viewModel.downloadStatus != .stale
-        )
-    }
-    
-    var removeAllNotes: some View {
-        Button(action: viewModel.deleteNotes) {
-            Text("Remove all notes")
-        }
-    }
-    
-    var notes: some View {
-        guard let note = currentNote else {
-            return AnyView(Text("Nothing"))
-        }
-        let view = VStack(alignment: .leading) {
-            HStack(alignment: .top) {
-                Text("\(note.timestamp)")
-                Spacer()
-                Button(action: deleteNote) {
-                    Image(systemName: SFIcon.DELETE)
+                Button(action: viewModel.evictTrack) {
+                    Text("Remove Download")
+                }
+                .disabled(
+                    viewModel.downloadState != .current &&
+                    viewModel.downloadState != .stale
+                )
+                
+                Button(action: viewModel.deleteNotes) {
+                    Text("Remove all notes")
                 }
             }
-            Spacer()
-            Text(note.text)
-            Spacer()
-        }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: 200
-        )
-        .padding()
-        .background(Color.gray)
-        return AnyView(view)
     }
     
-    var trackData: some View {
+    private var trackData: some View {
         HStack {
             Text(viewModel.track.title)
                 .font(.title)
@@ -94,52 +57,30 @@ struct TrackView: View {
         .background(Color.orange)
     }
     
-    var noteInput: some View {
-        HStack {
-            Text("\(globalPlayerService.currentTime)")
-            TextField("Note", text: $newNote)
-                .onTapGesture(perform: globalPlayerService.pause)
-                .background(Color.white)
-            Button(action: addNote) {
-                Text("Add")
-            }
-            .background(Color.green)
-        }
+    private var notes: some View {
+        Notes(track: $viewModel.track, notes: $viewModel.notes, deleteNote: viewModel.deleteNote)
+        .frame(
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: 200
+        )
+        .padding()
+        .background(Color.gray)
+    }
+    
+    private var noteInput: some View {
+        NoteInput(addNote: viewModel.addNote)
         .padding()
         .background(Color.blue)
     }
     
-    var player: some View {
-        VStack {
-            Slider(
-                value: $globalPlayerService.currentTime,
-                in: 0...globalPlayerService.duration
-            ) { self.globalPlayerService.isScrubbing = $0 }
-            HStack {
-                Button(action: skipBackward) {
-                    Image(systemName: SFIcon.SKIP_BACKWARD)
-                        .frame(width: 50, height: 50)
-                        .background(Color.orange)
-                        .clipShape(Circle())
-                }
-                
-                Button(action: onButtonClick) {
-                    Image(systemName: buttonIcon)
-                        .frame(width: 75, height: 75)
-                        .background(Color.orange)
-                        .clipShape(Circle())
-                }
-                .disabled(viewModel.downloadStatus == .evicting)
-                .disabled(viewModel.downloadStatus == .downloading)
-                
-                Button(action: skipForward) {
-                    Image(systemName: SFIcon.SKIP_FORWARD)
-                        .frame(width: 50, height: 50)
-                        .background(Color.orange)
-                        .clipShape(Circle())
-                }
-            }
-        }
+    private var player: some View {
+        Player(
+            track: $viewModel.track,
+            downloadState: $viewModel.downloadState,
+            downloadTrack: viewModel.downloadTrack
+        )
         .frame(
             minWidth: 0,
             maxWidth: .infinity,
@@ -149,111 +90,9 @@ struct TrackView: View {
         .background(Color.pink)
     }
     
-    func skipBackward() {
-        globalPlayerService.skipBackward(numberOfSeconds: skipSeconds)
-    }
-
-    func skipForward() {
-        globalPlayerService.skipForward(numberOfSeconds: skipSeconds)
-    }
-    
-    
-    var buttonState: ButtonState {
-        let shouldDownload = (
-            viewModel.downloadStatus == .error ||
-            viewModel.downloadStatus == .remote ||
-            viewModel.downloadStatus == .stale
-        )
-        if shouldDownload {
-            return .download
-        }
-        if viewModel.downloadStatus == .current {
-            return globalPlayerService.isPlaying ? .pause : .play
-        }
-        if viewModel.downloadStatus == .downloading {
-            return .downloading
-        }
-        return .error
-    }
-    
-    var onButtonClick: () -> Void {
-        switch buttonState {
-        case .download:
-            return viewModel.downloadTrack
-        case .play, .pause:
-            return playTrack
-        default:
-            return {}
-        }
-    }
-    
-    var buttonIcon: String {
-        switch buttonState {
-        case .download:
-            return SFIcon.DOWNLOAD
-        case .downloading:
-            return SFIcon.DOWNLOADING
-        case .error:
-            return SFIcon.ERROR
-        case .loading:
-            return SFIcon.LOADING
-        case .pause:
-            return SFIcon.PAUSE
-        case .play:
-            return SFIcon.PLAY
-        }
-    }
-    
-    func playTrack() {
-        if(globalPlayerService.currentTrack != viewModel.track) {
-            globalPlayerService.loadAndPlay(viewModel.track)
-        } else {
-            globalPlayerService.togglePlayPause()
-        }
-    }
-    
-    func addNote() {
-        if(newNote.isEmpty) {
-            return
-        }
-        let timestamp = Int(round(globalPlayerService.currentTime))
-        viewModel.addNote(at: timestamp, text: newNote)
-        newNote = ""
-    }
-    
-    func deleteNote() {
-        guard let note = currentNote else { return }
-        viewModel.deleteNote(note)
-    }
-    
-    func onAppear() {
+    private func onAppear() {
         viewModel.checkIfTrackIsDownloaded()
         viewModel.fetchNotes()
-    }
-    
-    func onDisappear() {
-        globalPlayerService.pause()
-    }
-    
-    var isDownloadingDisabled: Bool {
-        viewModel.downloadStatus == .current ||
-        viewModel.downloadStatus == .downloading ||
-        viewModel.downloadStatus == .evicting
-    }
-    
-    var isEvictingDisabled: Bool {
-        viewModel.downloadStatus == .downloading ||
-        viewModel.downloadStatus == .evicting ||
-        viewModel.downloadStatus == .remote
-    }
-    
-    var currentNote: Note? {
-        if(globalPlayerService.currentTrack != viewModel.track) {
-            return nil
-        }
-        return viewModel.notes.last {
-            $0.timestamp <= Int(round(globalPlayerService.currentTime))
-        }
     }
 }
 

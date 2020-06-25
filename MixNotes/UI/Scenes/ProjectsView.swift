@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct ProjectsView: View {
+    
     @ObservedObject var viewModel: ProjectsViewModel
+    
     var body: some View {
         currentView
             .navigationBarTitle("Projects")
@@ -17,7 +19,7 @@ struct ProjectsView: View {
             .onAppear(perform: viewModel.fetchProjects)
     }
     
-    var currentView: some View {
+    private var currentView: some View {
         switch viewModel.currentState {
         case .empty:
             return AnyView(createMessageView())
@@ -26,13 +28,13 @@ struct ProjectsView: View {
         }
     }
     
-    var refreshButton: some View {
+    private var refreshButton: some View {
         let isLoading = viewModel.currentState == .loading
         let systemName = isLoading ? SFIcon.LOADING : SFIcon.REFRESH
         return ImageButton(systemName: systemName, action: viewModel.fetchProjects)
     }
     
-    var infoButton: some View {
+    private var infoButton: some View {
         ImageButton(systemName: SFIcon.INFO, action: {})
     }
     

@@ -76,25 +76,25 @@ class TrackViewModelTests: XCTestCase {
     func testCheckIfTrackIsDownloadedCurrent() {
         fileService?.downloadStatus = .current
         viewModel?.checkIfTrackIsDownloaded()
-        XCTAssert(viewModel?.downloadStatus == .current)
+        XCTAssert(viewModel?.downloadState == .current)
     }
     
     func testCheckIfTrackIsDownloadedStale() {
         fileService?.downloadStatus = .downloaded
         viewModel?.checkIfTrackIsDownloaded()
-        XCTAssert(viewModel?.downloadStatus == .stale)
+        XCTAssert(viewModel?.downloadState == .stale)
     }
     
     func testCheckIfTrackDownloadedRemote() {
         fileService?.downloadStatus = .notDownloaded
         viewModel?.checkIfTrackIsDownloaded()
-        XCTAssert(viewModel?.downloadStatus == .remote)
+        XCTAssert(viewModel?.downloadState == .remote)
     }
     
     func testDownloadTrack() {
         let expectation = XCTestExpectation(description: "Download track should succeed")
         viewModel?.downloadTrack()
-        XCTAssert(viewModel?.downloadStatus == .downloading)
+        XCTAssert(viewModel?.downloadState == .downloading)
         MixNotes_XCTAssertWithDelay(expectation: expectation) {
             XCTAssert(self.viewModel?.track.url.path == "/local/Project 1/Track 1")
         }
@@ -104,7 +104,7 @@ class TrackViewModelTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Download track should error")
         fileService?.isInErrorState = true
         viewModel?.downloadTrack()
-        XCTAssert(viewModel?.downloadStatus == .downloading)
+        XCTAssert(viewModel?.downloadState == .downloading)
         MixNotes_XCTAssertWithDelay(expectation: expectation) {
             XCTAssert(self.viewModel?.track.url.path == "/remote/Project 1/Track 1")
             XCTAssert(self.globalMessageService?.currentMessage == "Download Failed")
@@ -116,7 +116,7 @@ class TrackViewModelTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Evict track should succeed")
         viewModel = createViewModel(track: testLocalTrack)
         viewModel?.evictTrack()
-        XCTAssert(viewModel?.downloadStatus == .evicting)
+        XCTAssert(viewModel?.downloadState == .evicting)
         MixNotes_XCTAssertWithDelay(expectation: expectation) {
             XCTAssert(self.viewModel?.track.url.path == "/remote/Project 1/Track 1")
             XCTAssert(self.globalMessageService?.currentMessage == "Track Removed")
@@ -129,7 +129,7 @@ class TrackViewModelTests: XCTestCase {
         viewModel = createViewModel(track: testLocalTrack)
         fileService?.isInErrorState = true
         viewModel?.evictTrack()
-        XCTAssert(viewModel?.downloadStatus == .evicting)
+        XCTAssert(viewModel?.downloadState == .evicting)
         MixNotes_XCTAssertWithDelay(expectation: expectation) {
             XCTAssert(self.viewModel?.track.url.path == "/local/Project 1/Track 1")
             XCTAssert(self.globalMessageService?.currentMessage == "Eviction Failed")
