@@ -10,7 +10,7 @@ class NoteServiceTests: XCTestCase {
     let testTrack = Track(
         id: "Project 1-Track 1",
         title: "Track 1",
-        version: 0,
+        lastModified: Date(),
         url: URL(fileURLWithPath: "Project 1/Track 1")
     )
 

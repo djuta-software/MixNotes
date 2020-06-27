@@ -33,7 +33,7 @@ class ProjectServiceTests: XCTestCase {
             let expectedTitle = "Track \(index + 1)"
             XCTAssert(track.id == "Project 1-\(expectedTitle)")
             XCTAssert(track.title == expectedTitle)
-            XCTAssert(track.version == 0)
+            XCTAssert(track.lastModified != nil)
             XCTAssert(track.url == URL(fileURLWithPath: "/remote/Project 1/\(expectedTitle)"))
         }
     }
@@ -46,7 +46,7 @@ class ProjectServiceTests: XCTestCase {
         
     func testDownloadTrack() {
         let url = URL(fileURLWithPath: "/remote/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         let expectation = XCTestExpectation(description: "Track download should succeed")
         let publisher = projectService!.downloadTrack(track)
         MixNotes_XCTAssertPublisherFinishes(
@@ -60,7 +60,7 @@ class ProjectServiceTests: XCTestCase {
     func testDownloadTrackErrors() {
         fileService!.isInErrorState = true
         let url = URL(fileURLWithPath: "/remote/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         let expectation = XCTestExpectation(description: "Track download should error")
         let publisher = projectService!.downloadTrack(track)
         MixNotes_XCTAssertPublisherErrors(
@@ -71,7 +71,7 @@ class ProjectServiceTests: XCTestCase {
     
     func testEvictTrack() {
         let url = URL(fileURLWithPath: "/local/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         let expectation = XCTestExpectation(description: "Track eviction should succeed")
         let publisher = projectService!.evictTrack(track)
         MixNotes_XCTAssertPublisherFinishes(
@@ -86,7 +86,7 @@ class ProjectServiceTests: XCTestCase {
     func testEvictTrackErrors() {
         fileService!.isInErrorState = true
         let url = URL(fileURLWithPath: "/local/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         let expectation = XCTestExpectation(description: "Track eviction should fail")
         let publisher = projectService!.evictTrack(track)
         MixNotes_XCTAssertPublisherErrors(
@@ -97,7 +97,7 @@ class ProjectServiceTests: XCTestCase {
     
     func testDownloadTrackStatusDownloaded() {
         let url = URL(fileURLWithPath: "/remote/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         fileService?.downloadStatus = .current
         let status = projectService!.getTrackDownloadStatus(track)
         XCTAssert(status == .downloaded)
@@ -105,7 +105,7 @@ class ProjectServiceTests: XCTestCase {
     
     func testDownloadTrackStatusStale() {
         let url = URL(fileURLWithPath: "/remote/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         fileService?.downloadStatus = .downloaded
         let status = projectService!.getTrackDownloadStatus(track)
         XCTAssert(status == .stale)
@@ -113,7 +113,7 @@ class ProjectServiceTests: XCTestCase {
     
     func testDownloadTrackStatusNotDownloaded() {
         let url = URL(fileURLWithPath: "/remote/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         fileService?.downloadStatus = .notDownloaded
         let status = projectService!.getTrackDownloadStatus(track)
         XCTAssert(status == .notDownloaded)
@@ -121,7 +121,7 @@ class ProjectServiceTests: XCTestCase {
     
     func testDownloadTrackStatusError() {
         let url = URL(fileURLWithPath: "/remote/Project 1/Track 1")
-        let track = Track(id: "Project 1-Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Project 1-Track 1", title: "Track 1", lastModified: Date(), url: url)
         fileService?.isInErrorState = true
         let status = projectService!.getTrackDownloadStatus(track)
         XCTAssert(status == .error)

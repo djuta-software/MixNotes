@@ -22,7 +22,7 @@ struct Notes: View {
         }
         let view = VStack(alignment: .leading) {
             HStack(alignment: .top) {
-                Text("\(note.timestamp)")
+                FormattedTime(time: Double(note.timestamp))
                 Spacer()
                 Button(action: deleteCurrentNote) {
                     Image(systemName: SFIcon.DELETE)

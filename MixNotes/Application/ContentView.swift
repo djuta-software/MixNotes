@@ -26,7 +26,7 @@ struct ContentView: View {
         .environmentObject(globalPlayerService)
     }
     
-    var mainView: some View {
+    private var mainView: some View {
         do {
             let fileService = try FileService()
             let noteService = NoteService(noteRepository: NoteRepository())
@@ -42,9 +42,7 @@ struct ContentView: View {
             globalMessageService.setErrorMessage("Somethings wrong :(")
             return AnyView(EmptyView())
         }
-
-    }   
-    
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

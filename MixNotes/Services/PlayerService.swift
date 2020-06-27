@@ -36,7 +36,6 @@ class PlayerService: NSObject, PlayerServiceProtocol {
         super.init()
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-            try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print(error)
         }

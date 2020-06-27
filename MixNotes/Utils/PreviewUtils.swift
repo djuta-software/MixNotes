@@ -7,7 +7,7 @@ struct PreviewUtils {
         let track = Track(
             id: "testtrack",
             title: "Test Track",
-            version: 2,
+            lastModified: Date(),
             url: URL(fileURLWithPath: "/filesystem/track.wav")
         )
         let viewModel = TrackViewModel(
@@ -40,7 +40,7 @@ struct PreviewUtils {
             let track = Track(
                 id: "track\(index)",
                 title: "Track \(index)",
-                version: 1,
+                lastModified: Date(),
                 url: URL(fileURLWithPath: "/filesystem/file\(index).wav")
             )
             viewModel.tracks.append(track)

@@ -32,10 +32,11 @@ class ProjectService: ProjectServiceProtocol {
         let items = try fileService.readDir(project.title)
         return items.enumerated().map { (index, item) in
             let url = fileService.getItemUrl(project.title, item)
+            let version = NSFileVersion.currentVersionOfItem(at: url)
             return Track(
                 id: "\(project.title)-\(item)",
                 title: item,
-                version: 0,
+                lastModified: version?.modificationDate,
                 url: url
             )
         }

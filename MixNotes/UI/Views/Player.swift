@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Player: View {
     
-    enum PrimaryButtonState: String {
+    private enum PrimaryButtonState: String {
         case download
         case play
         case pause
@@ -58,10 +58,14 @@ struct Player: View {
     }
     
     private var slider: some View {
-        Slider(
-            value: $globalPlayerService.currentTime,
-            in: 0...globalPlayerService.duration
-        ) { self.globalPlayerService.isScrubbing = $0 }
+        HStack {
+            FormattedTime(time: globalPlayerService.currentTime)
+            Slider(
+                value: $globalPlayerService.currentTime,
+                in: 0...globalPlayerService.duration
+            ) { self.globalPlayerService.isScrubbing = $0 }
+            FormattedTime(time: globalPlayerService.duration)
+        }
     }
     
     private func skipBackward() {

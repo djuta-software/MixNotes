@@ -22,8 +22,7 @@ class GlobalPlayerService: ObservableObject {
             }
         }
     }
-    
-    
+
     var player: PlayerServiceProtocol
 
     init(player: PlayerServiceProtocol) {

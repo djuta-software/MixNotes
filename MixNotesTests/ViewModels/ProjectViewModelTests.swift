@@ -35,7 +35,7 @@ class ProjectViewModelTests: XCTestCase {
             let expectedTitle = "Track \(index + 1)"
             XCTAssert(track.id == "Project 1-\(expectedTitle)")
             XCTAssert(track.title == expectedTitle)
-            XCTAssert(track.version == 0)
+            XCTAssert(track.lastModified != nil)
             XCTAssert(track.url == URL(fileURLWithPath: "/remote/Project 1/\(expectedTitle)"))
         }
     }
@@ -49,7 +49,7 @@ class ProjectViewModelTests: XCTestCase {
     
     func testCreateTrackView() {
         let url = URL(fileURLWithPath: "/local/Project 1/Track 1.wav")
-        let track = Track(id: "Track 1", title: "Track 1", version: 0, url: url)
+        let track = Track(id: "Track 1", title: "Track 1", lastModified: Date(), url: url)
         let trackView = viewModel?.createTrackView(for: track)
         XCTAssert(type(of: trackView!) == TrackView.self)
     }

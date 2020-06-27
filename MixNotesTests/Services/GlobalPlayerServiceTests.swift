@@ -14,7 +14,7 @@ class GlobalPlayerServiceTests: XCTestCase {
     
     private func createMockTrack() -> Track {
         let url = URL(fileURLWithPath: "/local")
-        return Track(id: "track1", title: "Track 1", version: 0, url: url)
+        return Track(id: "track1", title: "Track 1", lastModified: Date(), url: url)
     }
     
     private func assertIsInPlayingState() {

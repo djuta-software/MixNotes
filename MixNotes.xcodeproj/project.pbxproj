@@ -15,6 +15,10 @@
 		8A1BC4A72460EFAD001297F6 /* SFIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC4A62460EFAD001297F6 /* SFIcon.swift */; };
 		8A1BC4AA2460F6FE001297F6 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1BC4A92460F6FE001297F6 /* URLExtension.swift */; };
 		8A30BBF3245A404B0020872F /* ProjectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A30BBF2245A404B0020872F /* ProjectService.swift */; };
+		8A33051E24A587D1003B1301 /* DateTimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A33051D24A587D1003B1301 /* DateTimeUtils.swift */; };
+		8A33052024A5915A003B1301 /* FormattedTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A33051F24A5915A003B1301 /* FormattedTime.swift */; };
+		8A33052224A59292003B1301 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A33052124A59292003B1301 /* Onboarding.swift */; };
+		8A33052424A595F6003B1301 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A33052324A595F6003B1301 /* OnboardingView.swift */; };
 		8A4A3199245DE2320058DE9F /* GlobalPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A3198245DE2320058DE9F /* GlobalPlayerService.swift */; };
 		8A4A319B245DE23F0058DE9F /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4A319A245DE23F0058DE9F /* PlayerService.swift */; };
 		8A5079A3245918D60030703E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5079A2245918D60030703E /* AppDelegate.swift */; };
@@ -84,6 +88,10 @@
 		8A1BC4A62460EFAD001297F6 /* SFIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFIcon.swift; sourceTree = "<group>"; };
 		8A1BC4A92460F6FE001297F6 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		8A30BBF2245A404B0020872F /* ProjectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectService.swift; sourceTree = "<group>"; };
+		8A33051D24A587D1003B1301 /* DateTimeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeUtils.swift; sourceTree = "<group>"; };
+		8A33051F24A5915A003B1301 /* FormattedTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormattedTime.swift; sourceTree = "<group>"; };
+		8A33052124A59292003B1301 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		8A33052324A595F6003B1301 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		8A4A3198245DE2320058DE9F /* GlobalPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalPlayerService.swift; sourceTree = "<group>"; };
 		8A4A319A245DE23F0058DE9F /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
 		8A50799F245918D60030703E /* MixNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +198,7 @@
 			children = (
 				8A5079EA245922E80030703E /* TrackView.swift */,
 				8A5079D62459195A0030703E /* ProjectsView.swift */,
+				8A33052324A595F6003B1301 /* OnboardingView.swift */,
 				8A5079E6245921190030703E /* ProjectView.swift */,
 			);
 			path = Scenes;
@@ -331,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				8A7B0BF3248F26B90067283C /* PreviewUtils.swift */,
+				8A33051D24A587D1003B1301 /* DateTimeUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -392,6 +402,8 @@
 				8AE8759824A439B800CA686C /* CircularButton.swift */,
 				8AE8759C24A445A800CA686C /* NoteInput.swift */,
 				8AE8759E24A4481A00CA686C /* Notes.swift */,
+				8A33051F24A5915A003B1301 /* FormattedTime.swift */,
+				8A33052124A59292003B1301 /* Onboarding.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -539,6 +551,7 @@
 				8A011FBC24A2E9DF004BFF7B /* ImageButton.swift in Sources */,
 				8A1BC4A72460EFAD001297F6 /* SFIcon.swift in Sources */,
 				8A7B0BF6248F2D310067283C /* MockNoteRepository.swift in Sources */,
+				8A33052424A595F6003B1301 /* OnboardingView.swift in Sources */,
 				8A5079EB245922E80030703E /* TrackView.swift in Sources */,
 				8A5079E524591D8F0030703E /* ProjectsViewModel.swift in Sources */,
 				8A7B0BF7248F2D340067283C /* MockPlayerService.swift in Sources */,
@@ -546,11 +559,14 @@
 				8A5079A5245918D60030703E /* SceneDelegate.swift in Sources */,
 				8A5079E124591A760030703E /* Note.swift in Sources */,
 				8A4A319B245DE23F0058DE9F /* PlayerService.swift in Sources */,
+				8A33052024A5915A003B1301 /* FormattedTime.swift in Sources */,
 				8A5079E9245921360030703E /* ProjectViewModel.swift in Sources */,
 				8A4A3199245DE2320058DE9F /* GlobalPlayerService.swift in Sources */,
 				8A1BC4A52460EF96001297F6 /* Localization.swift in Sources */,
 				8A87C24E245B6147009DECF3 /* NoteService.swift in Sources */,
 				8A7B0BF5248F2D2E0067283C /* MockFileService.swift in Sources */,
+				8A33051E24A587D1003B1301 /* DateTimeUtils.swift in Sources */,
+				8A33052224A59292003B1301 /* Onboarding.swift in Sources */,
 				8A5079D72459195A0030703E /* ProjectsView.swift in Sources */,
 				8A5079DA2459196E0030703E /* Project.swift in Sources */,
 				8A5079E7245921190030703E /* ProjectView.swift in Sources */,

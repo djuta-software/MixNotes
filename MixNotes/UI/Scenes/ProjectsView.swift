@@ -11,6 +11,7 @@ import SwiftUI
 struct ProjectsView: View {
     
     @ObservedObject var viewModel: ProjectsViewModel
+    @State private var showOnboarding = false
     
     var body: some View {
         currentView
@@ -35,7 +36,16 @@ struct ProjectsView: View {
     }
     
     private var infoButton: some View {
-        ImageButton(systemName: SFIcon.INFO, action: {})
+        ImageButton(systemName: SFIcon.INFO, action: {
+            self.showOnboarding = true
+        })
+        .sheet(isPresented: $showOnboarding, onDismiss: {
+            self.showOnboarding = false
+        }) {
+            OnboardingView() {
+                self.showOnboarding = false
+            }
+        }
     }
     
     private func createListView() -> some View {

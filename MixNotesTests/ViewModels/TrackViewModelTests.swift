@@ -15,14 +15,14 @@ class TrackViewModelTests: XCTestCase {
     let testTrack = Track(
         id: "Project 1-Track 1",
         title: "Track 1",
-        version: 0,
+        lastModified: Date(),
         url: URL(fileURLWithPath: "/remote/Project 1/Track 1")
     )
 
     let testLocalTrack = Track(
         id: "Project 1-Track 1",
         title: "Track 1",
-        version: 0,
+        lastModified: Date(),
         url: URL(fileURLWithPath: "/local/Project 1/Track 1")
     )
     
