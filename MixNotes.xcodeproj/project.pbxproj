@@ -55,6 +55,7 @@
 		8ABEB5DB2475EB8900B01B5D /* ProjectsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEB5DA2475EB8900B01B5D /* ProjectsViewModelTests.swift */; };
 		8ABEB5DD2475ECE500B01B5D /* ProjectViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEB5DC2475ECE500B01B5D /* ProjectViewModelTests.swift */; };
 		8ABEB5DF2475ECFC00B01B5D /* TrackViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEB5DE2475ECFC00B01B5D /* TrackViewModelTests.swift */; };
+		8AD6779E24BEA55F00DBE519 /* MixNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6779C24BEA55F00DBE519 /* MixNotes.xcdatamodeld */; };
 		8AE8759724A4390100CA686C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8759624A4390100CA686C /* Player.swift */; };
 		8AE8759924A439B800CA686C /* CircularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8759824A439B800CA686C /* CircularButton.swift */; };
 		8AE8759D24A445A800CA686C /* NoteInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8759C24A445A800CA686C /* NoteInput.swift */; };
@@ -134,6 +135,7 @@
 		8ABEB5DC2475ECE500B01B5D /* ProjectViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModelTests.swift; sourceTree = "<group>"; };
 		8ABEB5DE2475ECFC00B01B5D /* TrackViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewModelTests.swift; sourceTree = "<group>"; };
 		8AD532632474A1AA00A0330C /* MockPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPlayerService.swift; sourceTree = "<group>"; };
+		8AD6779D24BEA55F00DBE519 /* MixNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MixNotes.xcdatamodel; sourceTree = "<group>"; };
 		8AE8759624A4390100CA686C /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		8AE8759824A439B800CA686C /* CircularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularButton.swift; sourceTree = "<group>"; };
 		8AE8759C24A445A800CA686C /* NoteInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInput.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		8A507996245918D60030703E = {
 			isa = PBXGroup;
 			children = (
+				8AD6779C24BEA55F00DBE519 /* MixNotes.xcdatamodeld */,
 				8A5079A1245918D60030703E /* MixNotes */,
 				8A5079B8245918D90030703E /* MixNotesTests */,
 				8A5079C3245918D90030703E /* MixNotesUITests */,
@@ -543,6 +546,7 @@
 				8A5079EF2459253C0030703E /* TrackViewModel.swift in Sources */,
 				8A1BC4AA2460F6FE001297F6 /* URLExtension.swift in Sources */,
 				8A87C24C245B6126009DECF3 /* FileService.swift in Sources */,
+				8AD6779E24BEA55F00DBE519 /* MixNotes.xcdatamodeld in Sources */,
 				8AAEBABE245CA3800028EA54 /* GlobalMessageView.swift in Sources */,
 				8A7B0BF4248F26B90067283C /* PreviewUtils.swift in Sources */,
 				8AE8759D24A445A800CA686C /* NoteInput.swift in Sources */,
@@ -910,6 +914,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8AD6779C24BEA55F00DBE519 /* MixNotes.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8AD6779D24BEA55F00DBE519 /* MixNotes.xcdatamodel */,
+			);
+			currentVersion = 8AD6779D24BEA55F00DBE519 /* MixNotes.xcdatamodel */;
+			path = MixNotes.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8A507997245918D60030703E /* Project object */;
 }

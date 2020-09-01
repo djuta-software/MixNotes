@@ -33,7 +33,6 @@ class ProjectServiceTests: XCTestCase {
             let expectedTitle = "Track \(index + 1)"
             XCTAssert(track.id == "Project 1-\(expectedTitle)")
             XCTAssert(track.title == expectedTitle)
-            XCTAssert(track.lastModified != nil)
             XCTAssert(track.url == URL(fileURLWithPath: "/remote/Project 1/\(expectedTitle)"))
         }
     }

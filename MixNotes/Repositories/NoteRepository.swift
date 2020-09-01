@@ -1,6 +1,7 @@
 import Foundation
 import CloudKit
 import Combine
+import CoreData
 
 protocol NoteRepositoryProtocol {
     func getNotes(for track: Track) -> AnyPublisher<[Note], Error>
@@ -14,6 +15,7 @@ enum NoteRepositoryError: Error {
 }
 
 struct NoteRepository: NoteRepositoryProtocol {
+    let container: NSPersistentCloudKitContainer
     let database = CKContainer(identifier: "iCloud.PAL").privateCloudDatabase
     func getNotes(for track: Track) -> AnyPublisher<[Note], Error> {
 

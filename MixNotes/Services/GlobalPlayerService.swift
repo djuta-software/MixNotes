@@ -18,7 +18,7 @@ class GlobalPlayerService: ObservableObject {
     @Published var isScrubbing = false {
         didSet {
             if !isScrubbing {
-                player.setTime(currentTime)
+                setTime(currentTime)
             }
         }
     }
@@ -73,6 +73,14 @@ class GlobalPlayerService: ObservableObject {
     
     func skipForward(numberOfSeconds: Double) {
         player.skipForward(numberOfSeconds: numberOfSeconds)
+    }
+    
+    func setTime(_ time: Double) {
+        player.setTime(time)
+    }
+    
+    func setTime(seconds: Int) {
+        player.setTime(Double(seconds))
     }
     
     var isPlaying: Bool {

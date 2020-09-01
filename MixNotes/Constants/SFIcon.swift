@@ -12,5 +12,7 @@ struct SFIcon {
     static let CONTEXT_MENU = "ellipsis"
     static let SKIP_BACKWARD = "gobackward.10"
     static let SKIP_FORWARD = "goforward.10"
+    static let PREVIOUS_NOTE = "chevron.left.circle.fill"
+    static let NEXT_NOTE = "chevron.right.circle.fill"
     
 }

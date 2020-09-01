@@ -29,7 +29,10 @@ struct ContentView: View {
     private var mainView: some View {
         do {
             let fileService = try FileService()
-            let noteService = NoteService(noteRepository: NoteRepository())
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let noteService = NoteService(noteRepository: NoteRepository(
+                container: appDelegate.persistentContainer
+            ))
             let projectService = ProjectService(fileService: fileService)
             let viewModel = ProjectsViewModel(
                 projectService: projectService,

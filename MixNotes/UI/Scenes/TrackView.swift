@@ -51,12 +51,7 @@ struct TrackView: View {
         if let date = viewModel.track.lastModified {
             displayDate = DateTimeUtils.formatDate(date)
         }
-        return HStack {
-            Text(viewModel.track.title)
-                .font(.title)
-            Spacer()
-            Text("Last Modified: \(displayDate)")
-        }
+        return Text("Last Modified: \(displayDate)")
         .padding()
         .background(Color.orange)
     }
